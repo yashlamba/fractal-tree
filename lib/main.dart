@@ -96,7 +96,7 @@ class _FractalTreeState extends State<FractalTree> {
                 max: 0.7,
                 label: "$decreaseFactor",
               ),
-              const Text("Length Decay", style: TextStyle(color: Colors.white)),
+              const Text("Length Decay Factor", style: TextStyle(color: Colors.white)),
             ]),
           ), // This is for the controller class
         ],
