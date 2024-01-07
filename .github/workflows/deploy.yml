@@ -1,0 +1,25 @@
+name: Build Fractal Tree
+on:
+    workflow_dispatch:
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+            - uses: subosito/flutter-action@v2
+              with:
+                  flutter-version: "3.16.5"
+                  channel: "stable"
+            - run: flutter pub get
+            - run: flutter build web --release --base-href /fractal-tree/
+            - name: Git setup and update
+              run: |
+                  git config user.name "GitHub Action" && git config user.email "github-action@github.com"
+                  git stash
+                  git checkout gh-pages
+                  \cp -r build/web/* .
+                  git add .
+                  git commit -m "Deployed"
+                  git push origin gh-pages
